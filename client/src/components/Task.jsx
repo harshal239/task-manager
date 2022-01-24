@@ -4,6 +4,10 @@ import { useDeleteTaskMutation } from "../services/TaskApi";
 import moment from "moment";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
+/**
+ * *Component for displaying single Task
+ */
+
 const Task = ({ taskDetails }) => {
   const [deleteTask] = useDeleteTaskMutation();
 
@@ -17,11 +21,11 @@ const Task = ({ taskDetails }) => {
       <p>{taskDetails.description}</p>
       <h2>
         <span className="font-semibold">Start Date</span> :
-        {moment(taskDetails.startTime).format("lll")}
+        {moment(taskDetails.startTime).utc().format("lll")}
       </h2>
       <h2>
         <span className="font-semibold">End Date</span> :
-        {moment(taskDetails.endTime).format("lll")}
+        {moment(taskDetails.endTime).utc().format("lll")}
       </h2>
       <div className="flex justify-between gap-2">
         <button

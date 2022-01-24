@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAddTaskMutation } from "../services/TaskApi";
 
+/**
+ * *Component for adding Task
+ */
 const AddTask = () => {
   const [task, setTask] = useState({
     title: "",
@@ -14,10 +17,12 @@ const AddTask = () => {
   const navigate = useNavigate();
   const [addTask] = useAddTaskMutation();
 
+  //*Function to handle async adding of task
   const addHandler = async () => {
     await addTask(task);
   };
 
+  //*Function to handle chnages in the form fields
   const handleChange = (e) => {
     e.preventDefault();
 

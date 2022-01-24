@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUpdateTaskMutation, useTaskQuery } from "../services/TaskApi";
 
+/**
+ * *Component for Edit Task
+ */
+
 const EditTask = () => {
   const [task, setTask] = useState({
     title: "",
@@ -13,15 +17,16 @@ const EditTask = () => {
   });
 
   const { id } = useParams();
-
   const navigate = useNavigate();
   const [updateTask] = useUpdateTaskMutation();
   const { data: singleTask, refetch } = useTaskQuery(id);
 
+  //*Function for async updating of the task
   const updateHandler = async () => {
     await updateTask({ id, ...task });
   };
 
+  //*Function to handle changes in the form fields
   const handleChange = (e) => {
     e.preventDefault();
     setTask({ ...task, [e.target.name]: e.target.value });
@@ -35,8 +40,8 @@ const EditTask = () => {
     let newDate = new Date(date);
     let month = newDate.getMonth();
     let date1 = newDate.getDate();
-    let hour = newDate.getHours();
-    let minutes = newDate.getMinutes();
+    let hour = newDate.getUTCHours();
+    let minutes = newDate.getUTCMinutes();
 
     newDate = `${newDate.getFullYear()}-${
       month < 10 ? `0${month + 1}` : month + 1
@@ -197,7 +202,7 @@ const EditTask = () => {
               checked={task.status}
               onChange={handleCheckBox}
             />
-            <label class="inline-block text-gray-800" for="complete">
+            <label className="inline-block text-gray-800" htmlFor="complete">
               Complete
             </label>
           </div>
